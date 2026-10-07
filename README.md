@@ -29,6 +29,10 @@ The categorical term uses a linear map on the first token of the predictive samp
 
 RFF-CGP, Eq. (27) through Eq. (30), is omitted.
 
+## GPU smoke
+
+Job 757604 ran on compute-gpu-02, one H200, jax 0.11.1, `CudaDevice(id=0)`. `smoke_gpu.py` took 20 SGD steps on one random sequence of length 8, 32 frequencies, learning rate 1e-2, two Monte Carlo samples. The loss stayed finite. It started at 2.134151 and ended at 3.148116, so this short noisy run did not descend. That is not a calibration result, and it is not the paper's Transformer training. The CPU test is the one that checks a single step can lower the loss.
+
 Appendix D adds a numerical jitter of 1e-6 in the solves. The equations do not, and this code does not add jitter. The returned diagonal variance is not clamped. The paper does not clamp it.
 
 A sentence in the method section writes V = X W_V^T. Eq. (1) writes V = X W_V with W_V in R^{D x D_V}. `project_qkv` follows Eq. (1).
